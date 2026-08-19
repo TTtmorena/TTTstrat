@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TTTstrat — Advanced Strategy Builder & Backtester for Bankr</title>
+  <meta name="description" content="TTTstrat builds executable trading strategies from signals, risk scores, and historical fee data for Bankr agents on Base & Robinhood Chain." />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="icon" href="https://iili.io/CL6CSje.md.png" />
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: #111113;
+      --border: #27272a;
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --accent: #ffffff;
+      --cyan: #00d4ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-img {
+      height: 42px;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--cyan);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 0 60px;
+    }
+
+    .hero-logo {
+      width: 220px;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .slogan {
+      color: var(--cyan);
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 580px;
+      margin: 0 auto 36px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #000;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s;
+      margin: 0 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(255,255,255,0.15);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: none;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 15px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--cyan);
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .install-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 14.5px;
+      color: var(--cyan);
+      overflow-x: auto;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .usage-list {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .usage-list div {
+      padding: 14px 20px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .usage-list div:last-child {
+      border-bottom: none;
+    }
+
+    .cta {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 50px 0;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 50px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-links {
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      margin-top: 12px;
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 32px; }
+      .hero-logo { width: 160px; }
+      .btn { display: block; margin: 10px auto; max-width: 260px; }
+      header { flex-direction: column; gap: 16px; }
+      nav a { margin: 0 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <img src="https://iili.io/CL6CSje.md.png" alt="TTTstrat" class="logo-img" />
+      <nav>
+        <a href="https://github.com/TTtmorena/TTTstrat" target="_blank">GitHub</a>
+        <a href="https://x.com/TTtmorena" target="_blank">@TTtmorena</a>
+        <a href="https://x.com/TTTprojject" target="_blank">@TTTprojject</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <img src="https://iili.io/CL6CSje.md.png" alt="TTTstrat Logo" class="hero-logo" />
+      <div class="badge">Bankr Ecosystem · Base & Robinhood Chain</div>
+      <h1>TTTstrat</h1>
+      <p class="slogan">From signal to strategy. From data to action.</p>
+      <p class="subtitle">
+        Advanced Strategy Builder & Backtester that turns signals, risk scores,<br>
+        and fee data into clear, executable trading plans for Bankr agents.
+      </p>
+      <div>
+        <a href="https://github.com/TTtmorena/TTTstrat" class="btn" target="_blank">Install Skill</a>
+        <a href="https://tttmorena.github.io/TTTprojject/" class="btn btn-secondary" target="_blank">All Skills</a>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section>
+      <h2>Key Capabilities</h2>
+      <p class="section-desc">Professional strategy intelligence built for real Bankr usage</p>
+      <div class="features">
+        <div class="feature-card">
+          <h3>Strategy Builder</h3>
+          <p>Create complete rule-based strategies from TTTsignal + TTTrisk + fee momentum.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Strategy Templates</h3>
+          <p>Momentum Hunter, Fee Farmer, Conservative Protector, Aggressive Scalper & Dual-Chain Rebalancer.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Hybrid Backtester</h3>
+          <p>Fee-momentum + market data simulation across 7 / 14 / 30 / 90 days.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Strategy Strength Score</h3>
+          <p>0–100 scoring system combining signal quality, risk, fee trend, volume and consistency.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Position Sizing Engine</h3>
+          <p>Fully integrated with TTTrisk recommendations for intelligent capital allocation.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Ready-to-Execute Commands</h3>
+          <p>Generates clean Bankr natural language commands (limit, DCA, stop loss, etc.).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section>
+      <h2>Install in seconds</h2>
+      <p class="section-desc">Just tell your Bankr agent:</p>
+      <div class="install-box">
+        install the skill at https://github.com/TTtmorena/TTTstrat
+      </div>
+      <p style="text-align:center; font-size:14px; color:var(--muted);">
+        The skill activates automatically when you ask for strategy, trading plan, backtest, or rules.
+      </p>
+    </section>
+
+    <!-- Usage -->
+    <section>
+      <h2>Usage Examples</h2>
+      <p class="section-desc">Natural language triggers that activate TTTstrat</p>
+      <div class="usage-list">
+        <div>TTTstrat for CLAWD</div>
+        <div>Build a Momentum Hunter strategy</div>
+        <div>How should I trade this token?</div>
+        <div>Backtest Fee Farmer on last 30 days</div>
+        <div>Create a conservative strategy</div>
+        <div>Give me ready-to-execute commands</div>
+        <div>TTTstrat using latest signal + risk</div>
+        <div>Dual-Chain Rebalancer strategy</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Part of Thinking Trade Tech</h2>
+      <p>
+        TTTracker · TTTsignal · TTTalert · TTTfolio · TTTrisk · <strong>TTTstrat</strong>
+      </p>
+      <a href="https://github.com/TTtmorena/TTTstrat" class="btn" target="_blank">Install TTTstrat</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="https://github.com/TTtmorena/TTTstrat" target="_blank">GitHub</a>
+        <a href="https://x.com/TTtmorena" target="_blank">@TTtmorena</a>
+        <a href="https://x.com/TTTprojject" target="_blank">@TTTprojject</a>
+        <a href="https://tttmorena.github.io/TTTprojject/" target="_blank">All Skills</a>
+      </div>
+      <div>Built by thania morena · Thinking Trade Tech</div>
+      <div class="tagline">Powered by data. Driven by intelligence.</div>
+    </footer>
+  </div>
+</body>
+</html>
