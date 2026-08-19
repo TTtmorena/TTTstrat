@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="https://iili.io/CL6CSje.md.png" alt="TTTstrat Logo" width="420"/>
-</p>
+  <img src="https://iili.io/CL6CSje.md.png" alt="TTTstrat Logo" width="420" />
+</p>>
 
 <h1 align="center">TTTstrat</h1>
 
